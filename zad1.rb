@@ -28,9 +28,10 @@ end
 
 def pary(a, b)
 	if a < b
-		a, b
+		return [a, b]
 	else
-		b, a
+		return [b, a]
+	end
 end
 
 # Sortowanie wbudowane w język Ruby
@@ -50,8 +51,8 @@ delta = t2 - t1
 print "Czas sortowaniw wbudowanego: #{delta.to_f}\n"
 
 # Szukanie min i max przechodzac element po elemencie
-max = 0
-min = size
+max = tab[0]
+min = tab[0]
 
 t1 = Time.now
 (0..tab.size - 1).each do |i|
@@ -70,8 +71,20 @@ delta = t2 - t1
 print "Czas quicksort: #{delta.to_f}\n"
 
 # Porownywanie parami
+max = tab[0]
+min = tab[0]
 t1 = Time.now
-pary()
+if tab.size%2 == 0
+	(0..tab.size - 2).step(2) do |i|
+		min =  pary(tab[i], tab[i + 1]).to_a[0] if min > pary(tab[i], tab[i + 1]).to_a[0]
+		max = pary(tab[i], tab[i + 1]).to_a[1] if max <  pary(tab[i], tab[i + 1]).to_a[1]
+	end
+else
+	(1..tab.size - 2).step(2) do |i|
+		min =  pary(tab[i], tab[i + 1]).to_a[0] if min > pary(tab[i], tab[i + 1]).to_a[0]
+		max = pary(tab[i], tab[i + 1]).to_a[1] if max <  pary(tab[i], tab[i + 1]).to_a[1]
+	end
+end
 t2 = Time.now
 delta = t2 - t1
 print "Czas parami: #{delta.to_f}\n"
