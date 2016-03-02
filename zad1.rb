@@ -26,8 +26,11 @@ def quicksort(tab, p, r)
 	end
 end
 
-def pary()
-
+def pary(a, b)
+	if a < b
+		a, b
+	else
+		b, a
 end
 
 # Sortowanie wbudowane w język Ruby
