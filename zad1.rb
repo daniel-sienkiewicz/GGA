@@ -26,6 +26,10 @@ def quicksort(tab, p, r)
 	end
 end
 
+def pary()
+
+end
+
 # Sortowanie wbudowane w język Ruby
 size =  Random.new_seed%1000
 print "Rozmiar tablicy #{size}\n"
@@ -61,3 +65,10 @@ quicksort(tab, 0, tab.size - 1)
 t2 = Time.now
 delta = t2 - t1
 print "Czas quicksort: #{delta.to_f}\n"
+
+# Porownywanie parami
+t1 = Time.now
+pary()
+t2 = Time.now
+delta = t2 - t1
+print "Czas parami: #{delta.to_f}\n"
