@@ -54,23 +54,29 @@ def selekcja(tab, k)
 	end
 end
 
-# Generowanie danych poczatkowych
-# Rozmiar danych
-size = Random.new_seed % 1000
-k = Random.new_seed % size
-print "Rozmiar tablicy #{size}\nk = #{k}\n"
+# Zakres danych: 100 - 10000, po 50 prob
+print "+---+-----------+ \n"
+print "| n | czas (50) |\n"
+(100..10000).step(100) do |i|
+	# Generowanie danych poczatkowych
+	# Rozmiar danych
+	size = i
+	average = 0
 
-# Tablica z liczbami
-tab = (0..size - 1).sort_by{rand}
+	(0..50).each do |j|
+		k = Random.new_seed % size
+		
+		# Tablica z liczbami
+		tab = (0..size - 1).sort_by{rand}
 
-# Wlasciwy algorytm + czas
-t1 = Time.now
-value = selekcja(tab, k)
-t2 = Time.now
-delta = t2 - t1
-
-# Sprawdzenie wyniku
-tab.sort!
-
-# Drukowanie wyniku i test
-print "Szukana liczba to #{value} => #{value == tab[k]}. Algorytm wykonany w czasie #{delta.to_f}\n\n"
+		# Wlasciwy algorytm + czas
+		t1 = Time.now
+		value = selekcja(tab, k)
+		t2 = Time.now
+		delta = t2 - t1
+		average += delta.to_f
+	end
+	average /=50
+	print "| #{i} | #{average} |\n"
+end
+print "+--------------------------------------------------------+\n"

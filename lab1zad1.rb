@@ -34,57 +34,75 @@ def pary(a, b)
 	end
 end
 
-# Sortowanie wbudowane w język Ruby
-size =  Random.new_seed%1000
-print "Rozmiar tablicy #{size}\n"
+print "+-----+----------------------+-----------------+--------------------+--------+ \n"
+print "| n   | wbudowany            | MinMax          | QuickSort          | Parami |\n"
+(100..10000).step(100) do |j|
+	# Sortowanie wbudowane w język Ruby
+	size =  j
+	averageW = 0
+	averageMM = 0
+	averageQ = 0
+	averageP = 0
 
-tab = Array.new()
+	(0..50).each do |k|
+		tab = Array.new()
 
-(0..size).each do |i|
-	tab[i] = Random.new_seed%size
-end
+		(0..size).each do |i|
+			tab[i] = Random.new_seed%size
+		end
 
-t1 = Time.now
-tab.sort
-t2 = Time.now
-delta = t2 - t1
-print "Czas sortowaniw wbudowanego: #{delta.to_f}\n"
+		t1 = Time.now
+		tab.sort
+		t2 = Time.now
+		delta = t2 - t1
+		averageW += delta.to_f
 
-# Szukanie min i max przechodzac element po elemencie
-max = tab[0]
-min = tab[0]
+		# Szukanie min i max przechodzac element po elemencie
+		max = tab[0]
+		min = tab[0]
 
-t1 = Time.now
-(0..tab.size - 1).each do |i|
-	max = tab[i] if tab[i] > max
-	min = tab[i] if tab[i] < min
-end
-t2 = Time.now
-delta = t2 - t1
-print "Czas: #{delta.to_f}\n"
+		t1 = Time.now
+		(0..tab.size - 1).each do |i|
+			max = tab[i] if tab[i] > max
+			min = tab[i] if tab[i] < min
+		end
+		t2 = Time.now
+		delta = t2 - t1
+		averageMM += delta.to_f
 
-# Quicksort
-t1 = Time.now
-quicksort(tab, 0, tab.size - 1)
-t2 = Time.now
-delta = t2 - t1
-print "Czas quicksort: #{delta.to_f}\n"
-
-# Porownywanie parami
-max = tab[0]
-min = tab[0]
-t1 = Time.now
-if tab.size%2 == 0
-	(0..tab.size - 2).step(2) do |i|
-		min =  pary(tab[i], tab[i + 1]).to_a[0] if min > pary(tab[i], tab[i + 1]).to_a[0]
-		max = pary(tab[i], tab[i + 1]).to_a[1] if max <  pary(tab[i], tab[i + 1]).to_a[1]
+		# Quicksort
+		t1 = Time.now
+		quicksort(tab, 0, tab.size - 1)
+		t2 = Time.now
+		delta = t2 - t1
+		averageQ += delta.to_f
+		
+		# Porownywanie parami
+		max = tab[0]
+		min = tab[0]
+		t1 = Time.now
+		if tab.size%2 == 0
+			(0..tab.size - 3).step(2) do |i|
+				value = pary(tab[i], tab[i + 1])
+				min =  value.to_a[0] if min > value.to_a[0]
+				max = value.to_a[1] if max <  value.to_a[1]
+			end
+		else
+			(1..tab.size - 3).step(2) do |i|
+				value = pary(tab[i], tab[i + 1])
+				min =  pary(tab[i], tab[i + 1]).to_a[0] if min > value.to_a[0]
+				max = value.to_a[1] if max <  value.to_a[1]
+			end
+		end
+		t2 = Time.now
+		delta = t2 - t1
+		averageP += delta.to_f
 	end
-else
-	(1..tab.size - 2).step(2) do |i|
-		min =  pary(tab[i], tab[i + 1]).to_a[0] if min > pary(tab[i], tab[i + 1]).to_a[0]
-		max = pary(tab[i], tab[i + 1]).to_a[1] if max <  pary(tab[i], tab[i + 1]).to_a[1]
-	end
+	averageW /= 50
+	averageMM /= 50
+	averageQ /= 50
+	averageP /= 50
+	print "| #{j} | #{j * Math.log2(j) *averageW} | #{averageMM} | #{j * Math.log2(j) * averageQ} | #{averageP} |\n"
 end
-t2 = Time.now
-delta = t2 - t1
-print "Czas parami: #{delta.to_f}\n"
+
+print "+---+-----------+--------+-----------+--------+ \n"
