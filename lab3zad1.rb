@@ -51,9 +51,8 @@ class Node
 
   # Przejscie drzewa inOrder
   def inOrder(node)
-    if node.left != nil
-      inOrder(node.left)
-    end
+    inOrder(node.left) if node.left != nil
+
     print "#{node.value}"
     if node.left.nil? && node.right.nil?
       print " => NIL\n"
@@ -61,19 +60,13 @@ class Node
       print "\n"
     end
 
-    if node.right != nil
-      inOrder(node.right)
-    end
+    inOrder(node.right) if node.right != nil
   end
 
   # Przejscie drzewa postOrder
   def postOrder(node)
-    if node.left != nil
-      postOrder(node.left)
-    end
-    if node.right != nil
-      postOrder(node.right)
-    end
+    postOrder(node.left) if node.left != nil
+    postOrder(node.right) if node.right != nil
     p node.value
   end
 
