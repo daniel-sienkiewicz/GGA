@@ -1,3 +1,7 @@
+=begin
+OBSZAR.1.R
+=end
+
 # Klasa opisujaca wierzcholek - z tych obiektow skladane zostaje cale drzewo
 class Node
   def initialize(value)
@@ -10,10 +14,12 @@ class Node
     @value
   end
 
+  # Dodanie lewego syna
   def addLeft(l)
     @left = l
   end
 
+  # Dodanie prawego syna
   def addRight(r)
     @right = r
   end
@@ -26,6 +32,7 @@ class Node
     @left
   end
 
+  # Dodanie elementu do drzewa
   def add(node)
     if node.value > @value
       if @right.nil?
@@ -42,6 +49,7 @@ class Node
     end
   end
 
+  # Przejscie drzewa inOrder
   def inOrder(node)
     if node.left != nil
       inOrder(node.left)
@@ -58,6 +66,7 @@ class Node
     end
   end
 
+  # Przejscie drzewa postOrder
   def postOrder(node)
     if node.left != nil
       postOrder(node.left)
@@ -68,6 +77,7 @@ class Node
     p node.value
   end
 
+  # Wyszukanie elementu vDziel
   def searchVdziel(node, x1, x2)
     if(node.value > x1 && node.value > x2)
       return node.searchVdziel(node.left, x1, x2)
@@ -78,6 +88,7 @@ class Node
     return node
   end
 
+  # Wyszukanie x1 w drzewie
   def serachTreeX1(node, x, result)
     print "#{node.value} "
     if(node.value < x && !node.right.nil?)
@@ -87,6 +98,7 @@ class Node
     end
   end
 
+  # Wyszukanie x2 w drzewie
   def serachTreeX2(node, x, result)
     print "#{node.value} "
     if(node.value < x && !node.right.nil?)
@@ -112,9 +124,11 @@ while (line = file.gets)
 end
 file.close
 
+# WYdruk drzewa inOrder
 print "\nDrzewo inOrder:\n"
 root.inOrder(root)
 
+# Wczytanie danych od uzytkownika
 puts "\nPodaj x1:"
 x1 = gets.chomp.to_i
 puts "Podaj x2:"
@@ -130,5 +144,6 @@ vdziel.serachTreeX1(vdziel, x1, result)
 # Wyszukiwanie x2
 vdziel.serachTreeX2(vdziel, x2, result)
 
+# Wydruk wyninku
 print "Liczby ze zbioru [#{x1}, #{x2}]: "
 print "#{result}\n"
