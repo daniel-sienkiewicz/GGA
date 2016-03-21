@@ -64,10 +64,10 @@ class Node
   end
 
   # Przejscie drzewa postOrder
-  def postOrder(node)
-    postOrder(node.left) if node.left != nil
-    postOrder(node.right) if node.right != nil
-    p node.value
+  def postOrder(node, result)
+    postOrder(node.left, result) if node.left != nil
+    postOrder(node.right, result) if node.right != nil
+    result << node.value
   end
 
   # Wyszukanie elementu vDziel
@@ -83,22 +83,26 @@ class Node
 
   # Wyszukanie x1 w drzewie
   def serachTreeX1(node, x, result)
-    print "#{node.value} "
     if(node.value < x && !node.right.nil?)
       serachTreeX1(node.right, x, result)
-    elsif(node.value > x && !node.left.nil?)
+    elsif(node.value >= x && !node.left.nil?)
+      postOrder(node.right, result)
       serachTreeX1(node.left, x, result)
     end
+
+    result << node.value if(node.value >= x)
   end
 
   # Wyszukanie x2 w drzewie
   def serachTreeX2(node, x, result)
-    print "#{node.value} "
-    if(node.value < x && !node.right.nil?)
+    if(node.value <= x && !node.right.nil?)
+      postOrder(node.left, result)
       serachTreeX2(node.right, x, result)
     elsif(node.value > x && !node.left.nil?)
       serachTreeX2(node.left, x, result)
     end
+
+    result << node.value if(node.value <= x)
   end
 
   private :addLeft
@@ -132,10 +136,12 @@ vdziel = root.searchVdziel(root, x1, x2)
 print "\nVdziel: #{vdziel.value}\n"
 
 # Wyszukiwanie x1
-vdziel.serachTreeX1(vdziel, x1, result)
+vdziel.serachTreeX1(vdziel.left, x1, result)
 
 # Wyszukiwanie x2
-vdziel.serachTreeX2(vdziel, x2, result)
+vdziel.serachTreeX2(vdziel.right, x2, result)
+
+result << vdziel.value
 
 # Wydruk wyninku
 print "Liczby ze zbioru [#{x1}, #{x2}]: "
