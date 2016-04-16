@@ -121,7 +121,7 @@ while (line = file.gets)
 end
 file.close
 
-# WYdruk drzewa inOrder
+# Wydruk drzewa inOrder
 print "\nDrzewo inOrder:\n"
 root.inOrder(root)
 
