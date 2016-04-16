@@ -3,7 +3,7 @@
 def partition(tab, p, r)
 	x = tab[r]
 	i = p - 1
-	
+
 	(p..r - 1).each do |j|
 		if tab[j] <= x
 			i++
@@ -36,7 +36,7 @@ end
 
 print "+-----+----------------------+-----------------+--------------------+--------+ \n"
 print "| n   | wbudowany            | MinMax          | QuickSort          | Parami |\n"
-(100..10000).step(100) do |j|
+(100..10000).step(10) do |j|
 	# Sortowanie wbudowane w język Ruby
 	size =  j
 	averageW = 0
@@ -76,7 +76,7 @@ print "| n   | wbudowany            | MinMax          | QuickSort          | Par
 		t2 = Time.now
 		delta = t2 - t1
 		averageQ += delta.to_f
-		
+
 		# Porownywanie parami
 		max = tab[0]
 		min = tab[0]
@@ -102,7 +102,7 @@ print "| n   | wbudowany            | MinMax          | QuickSort          | Par
 	averageMM /= 50
 	averageQ /= 50
 	averageP /= 50
-	print "| #{j} | #{j * Math.log2(j) *averageW} | #{averageMM} | #{j * Math.log2(j) * averageQ} | #{averageP} |\n"
+	print "| #{j} | #{averageW/(j * Math.log2(j))} | #{averageMM/j} | #{averageQ/(j * Math.log2(j))} | #{averageP/j} |\n"
 end
 
 print "+---+-----------+--------+-----------+--------+ \n"

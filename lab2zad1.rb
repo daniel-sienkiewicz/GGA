@@ -3,7 +3,7 @@
 def selekcja(tab, k)
 	if tab.length < 140
 		value = tab.sort![k]
-		
+
 		value
 	else
 		# Podzial tablicy na mniejsze 5-elementowe
@@ -11,7 +11,7 @@ def selekcja(tab, k)
 		(0..tab.length / 5 - 1).each do | i |
 			a.push tab[i + i * 4..i + 4 * (i + 1)]
 		end
-		
+
 		if tab.length % 5 != 0
 			a.push tab[(tab.length/5)*5..tab.length]
 		end
@@ -65,7 +65,7 @@ print "| n | czas (50) |\n"
 
 	(0..50).each do |j|
 		k = Random.new_seed % size
-		
+
 		# Tablica z liczbami
 		tab = (0..size - 1).sort_by{rand}
 
@@ -77,6 +77,6 @@ print "| n | czas (50) |\n"
 		average += delta.to_f
 	end
 	average /=50
-	print "| #{i} | #{average} |\n"
+	print "| #{i} | #{average/i} |\n"
 end
 print "+--------------------------------------------------------+\n"

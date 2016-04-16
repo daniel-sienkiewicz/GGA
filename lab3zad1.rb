@@ -72,9 +72,9 @@ class Node
 
   # Wyszukanie elementu vDziel
   def searchVdziel(node, x1, x2)
-    if(node.value > x1 && node.value > x2)
+    if(node != nil && node.value > x1 && node.value > x2)
       return node.searchVdziel(node.left, x1, x2)
-    elsif (node.value < x1 && node.value < x2)
+    elsif (node != nil &&  node.value < x1 && node.value < x2)
       return node.searchVdziel(node.right, x1, x2)
     end
 
@@ -133,16 +133,21 @@ x2 = gets.chomp.to_i
 
 # Wyszukiwanie wezla vDziel
 vdziel = root.searchVdziel(root, x1, x2)
-print "\nVdziel: #{vdziel.value}\n"
 
-# Wyszukiwanie x1
-vdziel.serachTreeX1(vdziel.left, x1, result)
+if vdziel != nil
+  print "\nVdziel: #{vdziel.value}\n"
 
-# Wyszukiwanie x2
-vdziel.serachTreeX2(vdziel.right, x2, result)
+  # Wyszukiwanie x1
+  vdziel.serachTreeX1(vdziel.left, x1, result)
 
-result << vdziel.value
+  # Wyszukiwanie x2
+  vdziel.serachTreeX2(vdziel.right, x2, result)
 
-# Wydruk wyninku
-print "Liczby ze zbioru [#{x1}, #{x2}]: "
-print "#{result}\n"
+  result << vdziel.value
+
+  # Wydruk wyninku
+  print "Liczby ze zbioru [#{x1}, #{x2}]: "
+  print "#{result.sort}\n"
+else
+  print "Liczby ze zbioru [#{x1}, #{x2}]: NIC"
+end
