@@ -36,7 +36,7 @@ class Backpack
       if obj[i].v == v
         return obj[i].s
       else
-        return 9999999
+        return Float::INFINITY
       end
     else
       if obj[i].v <= v
@@ -54,6 +54,8 @@ s = gets.chomp.to_i
 
 obj = []
 wynikA = []
+
+# Dane o rzeczach do plecaka
 a1 = Backpack.new(6, 5)
 a2 = Backpack.new(3, 1)
 a3 = Backpack.new(4, 4)
@@ -64,8 +66,16 @@ obj << a2
 obj << a3
 obj << a4
 
+# Wydruk wczytanych danych
+j = 1
+puts "\nWczytane dane"
+for i in obj
+  puts "#{j} => #{i.s}, #{i.v}"
+  j += 1
+end
+
 # Wynik algorytmu pierwszego
-puts "Rozwiazanie medota pierwsza W(#{obj.size}, #{s}) = #{Backpack.w(obj, obj.size - 1, s)}"
+puts "\nRozwiazanie medota pierwsza W(#{obj.size}, #{s}) = #{Backpack.w(obj, obj.size - 1, s)}"
 sum = 0
 for i in obj do
   sum += i.v
