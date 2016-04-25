@@ -39,7 +39,7 @@ class Backpack
         return Float::INFINITY
       end
     else
-      if obj[i].v <= v
+      if v < obj[i].v
         return Backpack.a(obj, i - 1, v)
       else
         return [Backpack.a(obj, i - 1, v), (Backpack.a(obj, i - 1, v - obj[i].v) + obj[i].s)].min
@@ -86,4 +86,4 @@ end
 end
 
 # Wynik algorytmu drugiego
-puts "Rozwiazanie medota druga  A(#{obj.size}, #{wynikA.index(wynikA.max)}) = #{wynikA.inject{ | mem, i | i > mem && i <= s ? i : mem}}"
+puts "Rozwiazanie medota druga  A(#{obj.size}, #{wynikA.index(wynikA.inject{ | mem, i | i > mem && i <= s ? i : mem})}) = #{wynikA.inject{ | mem, i | i > mem && i <= s ? i : mem}}"
