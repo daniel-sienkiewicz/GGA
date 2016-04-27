@@ -1,5 +1,12 @@
 =begin
 Zadanie PD.1
+n = 100, 200 ,...1000
+s(a) { 0 .. n}
+v(a) = { 0 .. n}
+S = { 0 .. n^2}
+
+średnia z tych czas/ n^3 jako tabelka
+
 =end
 
 class Backpack
@@ -48,42 +55,56 @@ class Backpack
   end
 end
 
-# Zebranie danych
-print "Podaj wielkosc plecaka: "
-s = gets.chomp.to_i
+delta1 = 0
+delta2 = 0
 
-obj = []
-wynikA = []
+puts "+-----+------------+------------+"
+puts "|  n  | algorytm 1 | algorytm 2 |"
+puts "+-----+------------+------------+"
+(100..1000).step(100) do | n |
+  (0..n).each do
+    print "| #{n} |"
+    # Zebranie danych
+    s = Random.new_seed%n
 
-# Dane o rzeczach do plecaka
-a1 = Backpack.new(6, 5)
-a2 = Backpack.new(3, 1)
-a3 = Backpack.new(4, 4)
-a4 = Backpack.new(2, 2)
+    obj = []
+    wynikA = []
 
-obj << a1
-obj << a2
-obj << a3
-obj << a4
+    ile = Random.new_seed%n
 
-# Wydruk wczytanych danych
-j = 1
-puts "\nWczytane dane"
-for i in obj
-  puts "#{j} => #{i.s}, #{i.v}"
-  j += 1
+    (0..ile).each do
+      # Dane o rzeczach do plecaka
+      i = Random.new_seed%n
+      v = Random.new_seed%n
+      obj << Backpack.new(i, v)
+    end
+
+    # Wynik algorytmu pierwszego
+    t1 = Time.now
+    Backpack.w(obj, obj.size - 1, s)
+    t2 = Time.now
+    delta1 += (t2 - t1).to_f
+    delta1 /= n**3
+    print " #{delta1} | "
+
+    # Wynik algorytmu drugiego
+    t1 = Time.now
+    sum = 0
+    for i in obj do
+      sum += i.v
+    end
+
+    (0..sum).each do | v |
+      wynikA << Backpack.a(obj, obj.size - 1, v)
+    end
+    t2 = Time.now
+
+    delta2 += (t2 - t1).to_f
+    delta2 /= n**3
+    puts " #{delta2} |"
+  end
+
+  delta1 = 0
+  delta2 = 0
+  puts "+-----+------------+------------+"
 end
-
-# Wynik algorytmu pierwszego
-puts "\nRozwiazanie medota pierwsza W(#{obj.size}, #{s}) = #{Backpack.w(obj, obj.size - 1, s)}"
-sum = 0
-for i in obj do
-  sum += i.v
-end
-
-(0..sum).each do | v |
-  wynikA << Backpack.a(obj, obj.size - 1, v)
-end
-
-# Wynik algorytmu drugiego
-puts "Rozwiazanie medota druga  A(#{obj.size}, #{wynikA.index(wynikA.inject{ | mem, i | i > mem && i <= s ? i : mem})}) = #{wynikA.inject{ | mem, i | i > mem && i <= s ? i : mem}}"
