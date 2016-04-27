@@ -61,9 +61,9 @@ delta2 = 0
 puts "+-----+------------+------------+"
 puts "|  n  | algorytm 1 | algorytm 2 |"
 puts "+-----+------------+------------+"
-(100..1000).step(100) do | n |
+(10..1000).step(10) do | n |
+  print "| #{n} |"
   (0..n).each do
-    print "| #{n} |"
     # Zebranie danych
     s = Random.new_seed%n
 
@@ -85,7 +85,6 @@ puts "+-----+------------+------------+"
     t2 = Time.now
     delta1 += (t2 - t1).to_f
     delta1 /= n**3
-    print " #{delta1} | "
 
     # Wynik algorytmu drugiego
     t1 = Time.now
@@ -101,8 +100,9 @@ puts "+-----+------------+------------+"
 
     delta2 += (t2 - t1).to_f
     delta2 /= n**3
-    puts " #{delta2} |"
+
   end
+  puts " #{delta1} | #{delta2} |"
 
   delta1 = 0
   delta2 = 0
