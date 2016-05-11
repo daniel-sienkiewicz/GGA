@@ -32,16 +32,23 @@ def apx(list, k)
     dist = 0
     # Niech sj ∈ P będzie punktem najdalszym od s1, . . . , sj−1. S := S ∪ {sj}.
     for j in list
+      min = Float::INFINITY
       for a in hospitals
-        if Node.distance(j , a) > dist
-          dist = Node.distance(j , a)
+        if Node.distance(j , a) < min
+          min = Node.distance(j , a)
           tmp = j
         end
       end
-      hospitals << tmp
-      tmp.hospital = true
-      list.delete(tmp)
+
+      if dist < min
+        dist = min
+        tmp1 = tmp
+      end
     end
+
+    hospitals << tmp1
+    tmp1.hospital = true
+    list.delete(tmp1)
   end
 
   # return S
